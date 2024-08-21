@@ -29,7 +29,7 @@ var phrasesErreur = [
 ];
 
 var phrasesReussite = [
-  ["Premier indice", "Deuxieme indice", "Troisieme indice"],
+  ["FR: ", "NL: ", "EN: "],
   [
     "Magnifique ! Vous avez débloqué une nouvelle voie.",
     "Vous avez percé le mystère avec brio ! Continuez sur cette lancée.",
@@ -79,18 +79,18 @@ var phrasesReussite = [
 
 document.addEventListener("DOMContentLoaded", function () {
   var runes = document.querySelectorAll(".runes");
-  var selectedRunesContainer = document.getElementById(
-    "selectedRunesContainer"
-  );
 
   runes.forEach(function (rune) {
     rune.addEventListener("click", function () {
       var runeIndex = parseInt(this.dataset.index);
       if (selectedRunes.length < 3) {
         selectedRunes.push(runeIndex); // Ajoute la rune cliquée à la liste des runes sélectionnées
-        this.classList.add("selected"); // Ajoute une classe pour indiquer que la rune est sélectionnée
+        this.classList.add(
+          "selected",
+          "selected-color-" + selectedRunes.length
+        ); // Ajoute une classe pour indiquer que la rune est sélectionnée
         this.classList.add("pressed");
-        addRuneToSelectedContainer(this.cloneNode(true)); // Ajoute la rune à la div prévue
+        // Retire la div de décoration
         if (selectedRunes.length === 3) {
           // Si trois runes ont été sélectionnées
           validateSequence(); // Valide la séquence
@@ -110,65 +110,51 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function addRuneToSelectedContainer(runeElement) {
-  runeElement.classList.add("selected-rune");
-  selectedRunesContainer.appendChild(runeElement);
-}
-
 // Déclarer un objet pour stocker les séquences validées avec leurs messages de succès associés et le nombre de fois qu'elles ont été validées
 var validatedSequences = {};
 
 function validateSequence() {
   var isMatch = false;
   var index = -1;
+
+  // Trier les runes sélectionnées pour ignorer l'ordre
+  var sortedSelectedRunes = selectedRunes.slice().sort((a, b) => a - b);
+
+  // Vérifier si la séquence sélectionnée (triée) correspond à l'une des séquences dans le tableau (triées)
   for (var i = 0; i < sequences.length; i++) {
-    if (arraysEqual(selectedRunes, sequences[i])) {
+    var sortedSequence = sequences[i].slice().sort((a, b) => a - b);
+    if (arraysEqual(sortedSelectedRunes, sortedSequence)) {
       isMatch = true;
       index = i;
       break;
     }
   }
+
   if (isMatch) {
-    var sequenceKey = selectedRunes.join("-"); // Créer une clé unique pour la séquence
-    if (!validatedSequences.hasOwnProperty(sequenceKey)) {
-      // Si la séquence n'a pas déjà été validée
-      validatedSequences[sequenceKey] = {
-        messages: phrasesReussite[index],
-        count: 1,
-      }; // Initialiser les messages de succès et le nombre de fois validé pour cette séquence
-    } else {
-      // Si la séquence a déjà été validée, incrémenter le nombre de fois validé
-      var sequenceInfo = validatedSequences[sequenceKey];
-      sequenceInfo.count++;
-    }
-    var sequenceInfo = validatedSequences[sequenceKey];
-    var messages = sequenceInfo.messages;
-    var messageCount = Math.min(sequenceInfo.count, messages.length); // Limiter le nombre de messages affichés
+    // Si la séquence est trouvée
+    var sequenceKey = sortedSelectedRunes.join("-"); // Clé unique pour la séquence triée
     var messagesContainer = document.getElementById("successMessagesContainer");
-    messagesContainer.innerHTML = ""; // Vide le contenu du conteneur avant d'ajouter de nouveaux messages
-    for (var i = 0; i < messageCount; i++) {
+    messagesContainer.innerHTML = ""; // Réinitialiser les messages précédents
+
+    var messages = phrasesReussite[index]; // Récupérer les phrases associées à la séquence correcte
+
+    // Afficher toutes les phrases associées à la séquence correcte
+    messages.forEach(function (message) {
       var messageElement = document.createElement("p");
-      messageElement.textContent = messages[i];
+      messageElement.textContent = message;
       messagesContainer.appendChild(messageElement); // Ajouter le message au conteneur
-    }
+    });
   } else {
+    // Si la séquence n'est pas trouvée
     var randomIndex = Math.floor(Math.random() * phrasesErreur.length);
     showMessage(phrasesErreur[randomIndex]);
   }
-  selectedRunes.forEach(function (runeIndex) {
-    var rune = document.querySelector(".runes[data-index='" + runeIndex + "']");
-    var clonedRune = rune.cloneNode(true); // Clonez la rune sélectionnée
-  });
 }
 
 function arraysEqual(arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    return false;
-  }
+  if (arr1.length !== arr2.length) return false;
   for (var i = 0; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) {
-      return false;
-    }
+    if (arr1[i] !== arr2[i]) return false;
   }
   return true;
 }
@@ -181,24 +167,15 @@ function resetGame() {
   document.getElementById("successMessagesContainer").innerText = "";
   selectedRunes = []; // Réinitialiser le tableau des runes sélectionnées
 
-  // Supprimer le contenu de la div "selectedRunesContainer"
-  selectedRunesContainer.innerHTML = "";
-
-  // Réinitialiser les runes à leur état initial en supprimant la classe 'selected' et 'descend'
+  var runes = document.querySelectorAll(".runes");
   runes.forEach(function (rune) {
-    rune.classList.remove("selected");
-    rune.classList.remove("descend");
-  });
-
-  // Supprimer les classes 'pressed' et 'glow' après l'animation
-  runes.forEach(function (rune) {
-    rune.classList.remove("pressed");
-    rune.classList.remove("glow");
-  });
-
-  // Supprimer les animations en cours sur les runes
-  runes.forEach(function (rune) {
-    rune.style.animation = "none";
+    rune.classList.remove(
+      "selected",
+      "selected-color-1",
+      "selected-color-2",
+      "selected-color-3",
+      "pressed"
+    );
   });
 
   // Réinitialiser les autres éléments si nécessaire
