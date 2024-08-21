@@ -1,0 +1,58 @@
+.main-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-title {
+  font-size: 3em;
+  justify-content: center;
+}
+
+.title-box {
+  display: flex;
+  justify-content: center;
+}
+
+.runes-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.runes {
+  width: 10em;
+  height: 10em;
+}
+
+#message {
+  margin: 2em 0;
+}
+
+#successMessagesContainer {
+  margin: 2em 0;
+}
+
+#selectedRunesContainer {
+  display: flex;
+  gap: 2em;
+}
+/* Définir l'animation pour l'enfoncement */
+@keyframes pressEffect {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* Ajouter la classe 'pressed' pour déclencher l'animation */
+.runes.pressed {
+  animation: pressEffect 0.5s ease-in-out;
+}
