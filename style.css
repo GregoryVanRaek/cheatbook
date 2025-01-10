@@ -21,6 +21,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top:5%;
 }
 
 .runes-box {
@@ -44,8 +45,9 @@ img {
 }
 
 #successMessagesContainer {
-  margin: 1.5em 0;
+  margin: 1.2em 0;
   text-align: center;
+  font-size: 2rem;
 }
 
 /* Définir l'animation pour l'enfoncement */
@@ -87,4 +89,14 @@ img {
   font-size: 2em;
   text-align: center;
   font-style: italic;
+}
+
+.success-message{
+  font-size: 2rem;
+}
+
+.languageContainer{
+  position:absolute;
+  top:10px;
+  left:10px;
 }
