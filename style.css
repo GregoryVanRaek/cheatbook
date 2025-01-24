@@ -4,7 +4,7 @@
 }
 
 body {
-  background-image: url("./pic/bg.avif");
+  background-image: url("./pic/runes/fond-1280.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   font-family: "SpecialElite-Regular";
@@ -62,33 +62,25 @@ img {
     transform: scale(1);
   }
 }
-/* Ajouter la classe 'pressed' pour déclencher l'animation */
+
 .runes.pressed {
   animation: pressEffect 0.5s ease-in-out;
 }
 
-.selected-color-1 {
-  border: 3px solid red;
-  box-shadow: 0 0 10px red;
-}
-
-.selected-color-2 {
-  border: 3px solid green;
-  box-shadow: 0 0 10px green;
-}
-
-.selected-color-3 {
-  border: 3px solid blue;
-  box-shadow: 0 0 10px blue;
-}
-
 #reset {
   border: none;
-  background-color: rgb(244, 225, 203);
+  background-color: rgb(203,187,151);
   font-family: "SpecialElite-Regular";
-  font-size: 2em;
+  border-radius: 90%;
   text-align: center;
   font-style: italic;
+}
+
+.icon{
+  width:35px;
+  height:35px;
+  opacity: 0.6;
+  border: none;
 }
 
 .success-message{
@@ -96,7 +88,10 @@ img {
 }
 
 .languageContainer{
+  display:flex;
+  flex-direction: column;
+  gap:1.2em;
   position:absolute;
-  top:10px;
-  left:10px;
+  top:25px;
+  left:25px;
 }

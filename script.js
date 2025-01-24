@@ -21,7 +21,6 @@ var sequences = [
 var langue = document.documentElement.lang;
 
 var selectedRunes = []; // Tableau pour stocker les runes sélectionnées
-var successMessagesCounter = {};
 var phrasesErreur = [
   ["Un barbare insiste pour utiliser une cuillère comme arme légendaire.",
     "Een barbaar staat erop om een lepel als legendarisch wapen te gebruiken.",
@@ -470,22 +469,27 @@ var phrasesReussite = [
  // Tableau de messages de réussite personnalisés pour chaque combinaison
 
 document.addEventListener("DOMContentLoaded", function () {
-  var runes = document.querySelectorAll(".runes");
+  let runes = document.querySelectorAll(".runes");
 
   runes.forEach(function (rune) {
     rune.addEventListener("click", function () {
-      var runeIndex = parseInt(this.dataset.index);
+      let runeIndex = parseInt(this.dataset.index);
       if (selectedRunes.length < 3) {
         selectedRunes.push(runeIndex); // Ajoute la rune cliquée à la liste des runes sélectionnées
+        const img = document.getElementById(`${runeIndex}`);
+        img.src =`./pic/runes/${runeIndex}-2.jpg`;
+
         this.classList.add(
           "selected",
-          "selected-color-" + selectedRunes.length
         ); // Ajoute une classe pour indiquer que la rune est sélectionnée
         this.classList.add("pressed");
         // Retire la div de décoration
         if (selectedRunes.length === 3) {
           // Si trois runes ont été sélectionnées
           validateSequence(); // Valide la séquence
+          setTimeout(() => {
+            resetGame();
+          },60000)
         }
       }
     });
@@ -502,20 +506,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Déclarer un objet pour stocker les séquences validées avec leurs messages de succès associés et le nombre de fois qu'elles ont été validées
-var validatedSequences = {};
-
 function validateSequence() {
-  var isMatch = false;
-  var index = -1;
-  var languageIndex;
+  let isMatch = false;
+  let index = -1;
+  let languageIndex;
 
   // Trier les runes sélectionnées pour ignorer l'ordre
-  var sortedSelectedRunes = selectedRunes.slice().sort((a, b) => a - b);
+  let sortedSelectedRunes = selectedRunes.slice().sort((a, b) => a - b);
 
   // Vérifier si la séquence sélectionnée (triée) correspond à l'une des séquences dans le tableau (triées)
-  for (var i = 0; i < sequences.length; i++) {
-    var sortedSequence = sequences[i].slice().sort((a, b) => a - b);
+  for (let i = 0; i < sequences.length; i++) {
+    let sortedSequence = sequences[i].slice().sort((a, b) => a - b);
     if (arraysEqual(sortedSelectedRunes, sortedSequence)) {
       isMatch = true;
       index = i;
@@ -525,29 +526,28 @@ function validateSequence() {
 
   if (isMatch) {
     // Si la séquence est trouvée
-    var sequenceKey = sortedSelectedRunes.join("-"); // Clé unique pour la séquence triée
-    var messagesContainer = document.getElementById("successMessagesContainer");
+    let sequenceKey = sortedSelectedRunes.join("-"); // Clé unique pour la séquence triée
+    let messagesContainer = document.getElementById("successMessagesContainer");
     messagesContainer.innerHTML = ""; // Réinitialiser les messages précédents
     languageIndex = getLanguage();
 
-    var message = phrasesReussite[index][languageIndex]; // Récupérer les phrases associées à la séquence correcte
+    let message = phrasesReussite[index][languageIndex]; // Récupérer les phrases associées à la séquence correcte
 
     // Afficher toutes les phrases associées à la séquence correcte
-    var messageElement = document.createElement("p");
+    let messageElement = document.createElement("p");
     messageElement.textContent = message;
     messageElement.classList.add('success-message')
     messagesContainer.appendChild(messageElement); // Ajouter le message au conteneur
 
   } else {
     // Si la séquence n'est pas trouvée
-    var randomIndex = Math.floor(Math.random() * phrasesErreur.length);
+    let randomIndex = Math.floor(Math.random() * phrasesErreur.length);
     languageIndex = getLanguage();
     showMessage(phrasesErreur[randomIndex][languageIndex]);
   }
 }
 
 function getLanguage(){
-  var languageIndex;
   switch(langue){
     case 'fr' : return 0;
     case 'nl' : return 1;
@@ -557,7 +557,7 @@ function getLanguage(){
 
 function arraysEqual(arr1, arr2) {
   if (arr1.length !== arr2.length) return false;
-  for (var i = 0; i < arr1.length; i++) {
+  for (let i = 0; i < arr1.length; i++) {
     if (arr1[i] !== arr2[i]) return false;
   }
   return true;
@@ -571,15 +571,13 @@ function resetGame() {
   document.getElementById("successMessagesContainer").innerText = "";
   selectedRunes = []; // Réinitialiser le tableau des runes sélectionnées
 
-  var runes = document.querySelectorAll(".runes");
+  let runes = document.querySelectorAll(".runes");
   runes.forEach(function (rune) {
     rune.classList.remove(
       "selected",
-      "selected-color-1",
-      "selected-color-2",
-      "selected-color-3",
       "pressed"
     );
+    rune.src = `./pic/runes/${rune.id}.jpg`
   });
 
   // Réinitialiser les autres éléments si nécessaire
@@ -587,6 +585,6 @@ function resetGame() {
 }
 
 function clearSuccessMessages() {
-  var messagesContainer = document.getElementById("successMessagesContainer");
+  let messagesContainer = document.getElementById("successMessagesContainer");
   messagesContainer.innerHTML = ""; // Vide le contenu du conteneur
 }
