@@ -24,13 +24,22 @@ h1 {
   padding-top:5%;
 }
 
-.runes-box {
+/*.runes-box {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
   width: 60%;
+}*/
+
+.runes-box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 10px;
+  justify-content: center;
+  margin: auto;
 }
 
 img {
@@ -45,9 +54,9 @@ img {
 }
 
 #successMessagesContainer {
-  margin: 1.2em 0;
+  margin: 1.1em 0;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 /* Définir l'animation pour l'enfoncement */

@@ -15,7 +15,7 @@ var sequences = [
   [2, 4, 4],
   [5, 9, 5],
   [9, 2, 3],
-  [6, 6, 6],
+  [6, 0, 9],
 ]; // Tableau de toutes les séquences possibles
 
 var langue = document.documentElement.lang;
@@ -398,9 +398,9 @@ var phrasesErreur = [
 ];
 
 var phrasesReussite = [
-  ["L’OS caché derrière les dragons montre un chiffre lorsque la flèche de la colonne s’aligne sur un crâne…",
-    "De Bot verborgen achter de draken toont een nummer wanneer de pijl op de kolom op één lijn staat met een schedel.",
-    "The Bone hidden behind the dragons show a number when the column arrow aligns with a skull."],
+  ["L’OS caché derrière les dragons montre un chiffre lorsque la flèche de la colonne s’aligne sur un des crânes ci-dessus…",
+    "Het bot dat achter de draken verborgen zit, laat een nummer zien als de pijl in de kolom op één lijn staat met één van de schedels erboven...",
+    "The Bone hidden behind the dragons shows a number when the column arrow aligns with one of the skulls above..."],
 
   ["Le titre de la carte fait référence à un endroit précis sur la carte à examiner.",
     "De kaarttitel verwijst naar een specifieke plaats op de te onderzoeken kaart.",
@@ -414,57 +414,57 @@ var phrasesReussite = [
     "Door de plekken gemarkeerd met een 'x' te onderzoeken, vind je een bepaald aantal gouden munten.",
     "By examining the spots marked with an 'x', you find a certain number of gold coins."],
 
-  ["",
-    "",
-    ""],
+  ["Ceci n’est pas qu’une simple chauve-souris, c’est un Vampire ! Avez-vous trouvé la documentation dans le bestiaire ?",
+    "Dit is niet zomaar een vleermuis, het is een vampier! Heb je de documentatie in de bestiarium gevonden?",
+    "This isn't just a bat - it's a Vampire! Did you find the documentation in the bestiary?"],
 
-  ["Une fois la grosse clé trouvée dans le livre, positionner judicieusement les figurines obtenues auprès des prisonniers.",
-    "Zodra de grote sleutel in het boek is gevonden, plaats de figuren verkregen van de gevangenen op de juiste manier.",
-    "Once the big key is found in the book, strategically position the figurines obtained from the prisoners."],
+  ["Une fois la grosse clé trouvée dans la bibliothèque, positionner judicieusement les figurines obtenues auprès des prisonniers enfermé.",
+    "Als je de grote sleutel in de bibliotheek hebt gevonden, plaats je de beeldjes die je van de gevangenen hebt gekregen voorzichtig.",
+    "Once you've found the big key in the library, position the figurines you've obtained from the locked prisoners."],
 
-  ["On dirait qu’il manque quelque chose dans ce bouclier. Vous la trouverez après avoir joué au jeu de plateau.",
-    "Het lijkt erop dat er iets ontbreekt in dit schild. Je vindt het nadat je het bordspel hebt gespeeld.",
-    "It seems something is missing in this shield. You’ll find it after playing the board game."],
+  ["On dirait qu’il manque quelque chose dans ce bouclier, on dirait qu’un monstre a dû la manger.",
+    "Het lijkt alsof er iets ontbreekt aan dit schild, alsof een monster het heeft opgegeten.",
+    "It looks like something's missing from this shield, like a monster must have eaten it."],
 
-  ["Il va falloir trouver un plan et ses 4 membres pour le réassembler.",
-    "Je moet een plan vinden en de 4 delen ervan om het weer in elkaar te zetten.",
-    "You’ll need to find a plan and its 4 parts to reassemble it."],
+  ["Il faudrait trouver un plan et ses 4 membres pour reconstruire ce monstre.",
+    "We hebben een plan en 4 leden nodig om dit monster te herbouwen.",
+    "It would take a plan and its 4 members to rebuild this monster."],
 
-  ["Une fois la clé trouvée, vous pourrez remonter le fantôme du sorcier.",
-    "Zodra de sleutel is gevonden, kun je de geest van de tovenaar herstellen.",
-    "Once the key is found, you can restore the wizard's ghost."],
+  ["Il faut d’abord trouver une clé… avant de pouvoir remonter la corde.",
+    "Eerst moet je een sleutel vinden... voordat je het touw omhoog kunt trekken.",
+    "First you have to find a key... before you can pull up the rope."],
 
-  ["Seul un voleur de niveau 3 peut l’ouvrir. Les armes doivent être rangées dans un certain ordre.",
-    "Alleen een dief van niveau 3 kan het openen. De wapens moeten in een specifieke volgorde worden geplaatst.",
-    "Only a level 3 thief can open it. The weapons must be arranged in a specific order."],
+  ["Seul un voleur de niveau 3 peut ouvrir cette armurerie. Les armes doivent être rangées dans un certain ordre.",
+    "Alleen een dief van niveau 3 kan deze wapenkamer openen. De wapens moeten in een bepaalde volgorde worden opgeborgen.",
+    "Only a level 3 thief can open this armory. Weapons must be stored in a certain order."],
 
-  ["Seul un mage de niveau 3 peut activer les runes. Il faudra aussi retrouver les 4 parties du labyrinthe.",
-    "Alleen een magiër van niveau 3 kan de runen activeren. Je moet ook de 4 delen van het labyrint vinden.",
-    "Only a level 3 mage can activate the runes. You'll also need to find the 4 parts of the labyrinth."],
+  ["Seul un mage de niveau 3 pourrait activer ces runes. Il faudrait aussi retrouver les 4 parties du labyrinthe.",
+    "Alleen een magiër van niveau 3 kan deze runen activeren. Je moet ook de 4 delen van het labyrint vinden.",
+    "Only a level 3 mage could activate these runes. It would also be necessary to find the 4 parts of the labyrinth."],
 
-  ["",
-    "",
-    ""],
+  ["Sur la gravure, des personnes ont l’air de tenir des chaînes dans leurs mains. Le lune semble indiquer qu’il fait nuit, il devrait y avoir un lien avec les bougies.",
+    "In de gravure lijken mensen kettingen in hun handen te hebben. De maan lijkt aan te geven dat het nacht is, dus er moet een verband zijn met de kaarsen.",
+    "In the engraving, people appear to be holding chains in their hands. The moon seems to indicate that it's night, so there should be a connection with the candles."],
 
-  ["",
-    "",
-    ""],
+  ["Il faut tout d’abord trouver la bonne recette, puis se mettre à la recherche des ingrédients dans le donjon...",
+    "Eerst moet je het juiste recept vinden en dan op zoek gaan naar de ingrediënten in de kerker...",
+    "First of all, you have to find the right recipe, then set out to find the ingredients in the dungeon..."],
 
-  ["Seule une clé magique ouvrira ce coffre.",
-    "Alleen een magische sleutel opent deze kist.",
-    "Only a magic key will open this chest."],
+  ["ATTENTION ! SERPENTS ! Seule une clé magique ouvrirait ce coffre.",
+    "PAS OP! SLANGEN! Alleen een magische sleutel kan deze kist openen.",
+    "BEWARE! SNAKES! Only a magic key can open this chest."],
 
-  ["Seule une clé magique ouvrira ce coffre.",
-    "Alleen een magische sleutel opent deze kist.",
-    "Only a magic key will open this chest."],
+  ["ARAIGNEES, DANGER ! Seule une clé magique ouvrirait ce coffre.",
+    "SPINNEN, GEVAAR! Alleen een magische sleutel kan deze kist openen.",
+    "SPIDERS, DANGER! Only a magic key can open this safe."],
 
-  ["",
-    "",
-    ""],
+  ["Combien de serpents et d’araignées se trouvent sans le donjon ? Il y a 2 coffres à ouvrir. En sachant que chaque rangée et chaque colonne font 15, on pourrait deviner le reste…",
+    "Hoeveel slangen en spinnen zitten er in de kerker? Er zijn 2 kisten om te openen. Als je weet dat elke rij en kolom 15 is, kun je de rest raden...",
+    "How many snakes and spiders are there without the dungeon? There are 2 chests to open. Knowing that each row and column is 15, we could guess the rest..."],
 
-  ["Donne une arme bonus.",
-    "Geeft een bonuswapen.",
-    "Grants a bonus weapon."]
+  ["Fin cachée du donjon ! Trouverez vous la porte cachée qui libérera tous les gobelins du donjon ?",
+    "Verborgen einde van de kerker! Kun jij de verborgen deur vinden die alle kobolden in de kerker zal bevrijden?",
+    "Hidden end of the dungeon! Can you find the hidden door that will free all the goblins in the dungeon?"]
 ];
  // Tableau de messages de réussite personnalisés pour chaque combinaison
 
